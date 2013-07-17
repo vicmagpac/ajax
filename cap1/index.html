@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<title>Board's 'R' Us</title>
+		<script type="text/javascript" src="text-utils.js"></script>
+		<script language="javascript" type="text/javascript">
+			var request = null; // aqui está uma variavel para o armazenamento do objeto de solicitação
+			function createRequest()
+			{
+				try {
+					// tenta criar um novo objeto de solicitação
+					request = new XMLHttpRequest();
+				}catch(trymicrosoft) {
+					try {
+						// tenta criar o objeto de solicitação, mas de uma maneira que funcione o no Internet Explorer
+						request = new ActiveXObject("Msxml2.XMLHTTP");
+					}catch(othermicrosoft) {
+						try {
+							// tenta criar o objeto de solicitação, mas de uma maneira que funcione o no Internet Explorer
+							request = new ActiveXObject("Microsoft.XMLHTTP");
+						}catch(failed) {
+							// se algo der errado, essa instrução assegurará que a variavel da solicitação, continue nulo.
+							request = null;
+						}
+					}
+				}
+
+				// verificando se a solicitação ainda é nula, se for algo deu errado no codigo
+				if(request == null) {
+					alert('Error creating request object!');
+				}
+			}
+		
+			function getBoardsSold()
+			{
+				createRequest();
+				// url da versão do script PHP habilitada para Ajax
+				var url = "getUpdateBoardSales-ajax.php";
+				// manipula a inicialização de conexão e informa ao objeto de solicitação como se conectar com o servidor
+				request.open("GET", url, true); //usando o objeto request
+				
+				request.onreadystatechange = updatePage;
+				// enviando solicitação
+				request.send(null);
+			}
+
+			function updatePage()
+			{
+				var newTotal = request.responseText;
+				var boardsSoldE1 = document.getElementById("boards-sold");
+				var cashE1 = document.getElementById("cash");
+				replaceText(boardsSoldE1, newTotal);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Boards Us Sales Report</h1>
+		<div id="boards">
+			<table border="1">
+				<tr>
+					<th>Snowboards Sold</th>
+					<td><span id="boards-sold">1012</span></td>
+				</tr>
+				<tr>
+					<th>What I sell em For</th>
+					<td><span id="price">249.95</span></td>
+				</tr>
+				<tr>
+					<th>What is costs me</th>
+					<td>$<span id="cost">84.22</span></td>
+				</tr>
+			</table>
+			<h2>Cash for the slopes	$<div id="cash">167718.76</div></h2>
+			<form method="GET">
+				<input value="Show me the money" type="button" onclick="getBoardsSold()" />
+			</form>
+		</div>
+	</body>
+</html>
