@@ -45,14 +45,25 @@
 
 			function updatePage()
 			{
-				var newTotal = request.responseText;
-				var boardsSoldE1 = document.getElementById("boards-sold");
-				var cashE1 = document.getElementById("cash");
-				replaceText(boardsSoldE1, newTotal);
+				// readyState é a propriedade  do objeto de solicitação que armazena o estado de prontidão atual
+				if(request.readyState == 4) {
+					var newTotal = request.responseText;
+					var boardsSoldE1 = document.getElementById("boards-sold");
+					var cashE1 = document.getElementById("cash");
+					replaceText(boardsSoldE1, newTotal);
 
-				/* calcula o lucro que katie obteve */
-				var priceE1 = document.getElementById("price");
-				var price = getText(priceE1);
+					/* calcula o lucro que katie obteve */
+					var priceE1 = document.getElementById("price");
+					var price = getText(priceE1);
+					var costE1 = document.getElementById("cost");
+					var cost = getText(costE1);
+					var cashPerBoard = price - cost;
+					var cash = cashPerBoard * newTotal;
+
+					cash = Math.round(cash * 100) / 100;
+					replaceText(cashE1, cash);
+
+				}
 			}
 		</script>
 	</head>
