@@ -1,1 +1,1 @@
-<h1>Exemplos práticos de Ajax</h1>
+<h1>Exemplos práticos de Ajax!</h1>
