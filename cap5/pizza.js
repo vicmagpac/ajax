@@ -32,10 +32,14 @@ function submitOrder()
 									"&order="+ escape(order);
 	url = url + "&dummy=" + new Date().getTime();
 	*/
+
 	var url = "placeOrder.php";
 	request.open("POST", url, true);
 	request.onreadystatechange = showConfirmation;
-	request.send(null);
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send("phone="+escape(phone)+
+					"&address="+escape(address)+
+					"&order="+escape(order));
 }
 
 function showConfirmation()
