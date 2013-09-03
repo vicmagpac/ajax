@@ -44,3 +44,15 @@ img.cover {
   left:            5px;
   z-index:           1;
 }
+
+.rank {
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  font-size: small;
+  background-color: black;
+  color: white;
+  border: thin solid white;
+  width: 20px;
+  z-index: 99;
+}
